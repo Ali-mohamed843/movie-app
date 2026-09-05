@@ -16,7 +16,11 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/movie-app/', 
+  base: '/movie-app/',
+  server: {
+    host: true,
+    port: 5173,
+  },
   build: {
     outDir: 'dist'
   }

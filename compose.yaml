@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      # mount the project folder into the container so local edits
+      # show up instantly (this is what makes hot-reload work)
+      - .:/app
+      # but keep node_modules as its own volume, so the container's
+      # own (Linux) install isn't overwritten by the host's copy
+      - /app/node_modules
+    env_file:
+      - .env
+    environment:
+      # on Windows/macOS, file-change events don't always reach the
+      # container through the bind mount, so fall back to polling
+      - CHOKIDAR_USEPOLLING=true
