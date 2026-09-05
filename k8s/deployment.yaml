@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: movie-app
+  labels:
+    app: movie-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: movie-app
+  template:
+    metadata:
+      labels:
+        app: movie-app
+    spec:
+      containers:
+        - name: movie-app
+          image: react-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5173
+          envFrom:
+            - secretRef:
+                name: movie-app-env
+          env:
+            - name: CHOKIDAR_USEPOLLING
+              value: "true"
