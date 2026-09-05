@@ -1,6 +1,3 @@
-import react from 'react'
-
-
 const Spinner = () => {
     return(
         
